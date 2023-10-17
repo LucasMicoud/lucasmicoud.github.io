@@ -1,6 +1,5 @@
-baseURL = 'https://lucasmicoud.github.io/'
+baseURL = 'http://localhost:12345/'
 languageCode = 'en-us'
-title = "Lucas Micoud's Cybersecurity blog"
 theme = "poison"
 
 paginate = 10
@@ -11,12 +10,12 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 
 
 [params]
-    brand = "Poison"                      # name of your site - appears in the sidebar
+    brand = "LumD"                      # name of your site - appears in the sidebar
     brand_image = "/images/brand_image.jpg"    # path to the image shown in the sidebar
-    description = "Update this 1..." # Used as default meta description if not specified in front matter
+    description = "Lucas Micoud's Cybersecurity blog" # Used as default meta description if not specified in front matter
     dark_mode = true                      # optional - defaults to false
     favicon = "/images/favicon.png"             # path to favicon (defaults to favicon.png)
-    front_page_content = ["tests"]
+    front_page_content = ["posts"]
     # MENU PLACEHOLDER
     # Menu dict keys:
         # Name:         The name to display on the menu.
@@ -24,30 +23,15 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
         # HasChildren:  If the directory's files should be listed.  Default is true.
         # Limit:        If the files should be listed, how many should be shown.
     menu = [
-        {Name = "About", URL = "/about/", HasChildren = false},
-        {Name = "Tests", URL = "/tests/", Pre = "Recent", HasChildren = true, Limit = 5},
+        {Name = "CTF Write-Ups", URL = "/ctfWriteUps/", Pre = "Recent", HasChildren = true, Limit = 5},
     ]
 
     # Links to your socials.  Comment or delete any you don't need/use. 
-    github_url = "https://github.com"
-    gitlab_url = "https://gitlab.com"
-    linkedin_url = "https://linkedin.com"
-    twitter_url = "https://twitter.com"
-    mastodon_url = "https://mastodon.social"
-    tryhackme_url = "https://tryhackme.com"
-    discord_url = "https://discord.com"
-    youtube_url = "https://youtube.com"
-    instagram_url = "https://instagram.com"
-    facebook_url = "https://facebook.com"
-    flickr_url = "https://flickr.com"
-    telegram_url = "https://telegram.org"
-    email_url = "mailto://user@domain"
+
 
     # NOTE: If you don't want to use RSS, comment or delete the following lines
     # Adds an RSS icon to the end of the socials which links to {{ .Site.BaseURL }}/index.xml
-    rss_icon = true
     # Which section the RSS icon links to, defaults to all content. See https://gohugo.io/templates/rss/#section-rss
-    rss_section = "posts"
 
     # Hex colors for your sidebar.
     sidebar_bg_color = "#202020"            # default is #202020
@@ -60,7 +44,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
     moon_sun_background_color = "#515151"   # default is #515151
 
     # Hex colors for your content in light mode.
-    text_color = "#C55A5B"             # default is #222
+    text_color = "#222"             # default is #222
     content_bg_color = "#FFFFF8"    # default is #FAF9F6
     post_title_color = "#C55A5B"    # default is #303030
     list_color = "#5a5a5a"          # default is #5a5a5a
