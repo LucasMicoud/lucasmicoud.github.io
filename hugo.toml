@@ -1,4 +1,4 @@
-baseURL = 'https://lucasmicoud.github.io'
+baseURL = 'https://lucasmicoud.github.io/'
 languageCode = 'en-us'
 title = "Lucas Micoud's Cybersecurity blog"
 theme = "poison"
