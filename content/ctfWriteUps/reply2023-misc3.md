@@ -37,8 +37,7 @@ It shows that the password ends with **GN7#zZJzWmwX45WfHQ**, but as mentionned i
 
 To find the correct password, we use the following script (trial and error showed that we needed two characters) :
 
-```pythonag-0-1hcs52q06ag-1-1hcs52q06ag-0-1hcs52q06ag-1-1hcs52q06
-``python
+```python
 import string
 
 suf = "GN7#zZJzWmwX45WfHQ"

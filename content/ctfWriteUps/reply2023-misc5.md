@@ -107,7 +107,7 @@ set $eax=0
 and continue execution with `c`. 
 
 However the program then prompts us with "CRC check failed". This is a bad sign. CRC, or cyclic redundancy check, is used to detect errors in data, for exemple in PNG files. Even if we use the same method to bypass it, the picture we get has every chance to be corrupted. In fact, here is what we get for a random password :
-![first_res.PNG](C:\Users\lucas\VirtualBox%20VMs\shared\first_res.PNG)
+![first_res.PNG](/images/8bb42503-5d20-490e-a26f-40cd9ab2823d.png)
 
 ## Back to the binary
 
@@ -119,7 +119,7 @@ Using gdb, we can dump the hash without having to understand how it is stored in
 
 The checksum is **bb62ddeec478a117b4088eda899ca965**, and a little crackstation search reveals that the password is **porc**. Using that, we can view the image :
 
-![noflag.png.PNG](C:\Users\lucas\VirtualBox%20VMs\shared\noflag.png.PNG)
+![noflag.png.PNG](/images/9397b55f-8676-4803-852d-5e070110223e.png)
 
 ## One final effort
 
@@ -190,6 +190,6 @@ Too bad ! It seems the program isn't keen on letting us expand the picture this 
 
 Here the program is doing multiple checks before printing the strings. If we use gdb to break at the first one, and bypass each of them the same way we bypassed the password check, the execution continues normally , and we can then use the view function to finally see the full picture :
 
-![flag.png](C:\Users\lucas\VirtualBox%20VMs\shared\flag.png)
+![flag.png](/images/7dc021ea-6352-4db8-981d-e7f13bc8048e.png)
 
 Where the flag is written in the bottom right corner : **FLG{7hisACr0p4l00z4isForL00z4}**
