@@ -107,7 +107,7 @@ set $eax=0
 and continue execution with `c`. 
 
 However the program then prompts us with "CRC check failed". This is a bad sign. CRC, or cyclic redundancy check, is used to detect errors in data, for exemple in PNG files. Even if we use the same method to bypass it, the picture we get has every chance to be corrupted. In fact, here is what we get for a random password :
-![first_res.PNG](/images/8bb42503-5d20-490e-a26f-40cd9ab2823d.png)
+![first_res.PNG](/images/8bb42503-5d20-490e-a26f-40cd9ab2823a.png)
 
 ## Back to the binary
 
@@ -119,7 +119,7 @@ Using gdb, we can dump the hash without having to understand how it is stored in
 
 The checksum is **bb62ddeec478a117b4088eda899ca965**, and a little crackstation search reveals that the password is **porc**. Using that, we can view the image :
 
-![noflag.png.PNG](/images/9397b55f-8676-4803-852d-5e070110223e.png)
+![noflag.png.PNG](/images/9397b55f-8676-4803-852d-5e070110223a.png)
 
 ## One final effort
 
