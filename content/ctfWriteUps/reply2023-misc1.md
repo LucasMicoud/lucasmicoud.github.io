@@ -15,7 +15,7 @@ In the exchange, we can see a zip file and a png being exchanged. The zip is pro
 
 The piture does not seem to contain any meaningful information :
 
-![photo_misc1.png](/static/images/d042e29a-4fa0-4748-8f72-743e6d9864ec.png)
+![photo_misc1.png](/images/d042e29a-4fa0-4748-8f72-743e6d9864ec.png)
 
 Using *exiftool* we get something : 
 
