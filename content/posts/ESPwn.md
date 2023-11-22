@@ -91,6 +91,12 @@ Beacon frames are sent by access points to advertise their presence on a channel
 
 The role of the other frames will be explained in more details in the chapter about authentication. 
 
+### Conclusion
+
+In this first part of our series on Wi-Fi hacking with an ESP32 board, we've covered the basics of Wi-Fi protocols, bands and channels, along with key terminology like MAC, SSID, and BSSID. We explored the structure of Wi-Fi frames, focusing on the MAC header and Frame Control, laying the groundwork for understanding Wi-Fi authentication.
+
+In the next part, we'll go for an in-depth explanation of the Wi-Fi authentication process.
+
 ## References
 [1] https://en.wikipedia.org/wiki/IEEE_802.11
 [2] https://www.makeuseof.com/wi-fi-router-channels-explained-what-do-they-all-do/
