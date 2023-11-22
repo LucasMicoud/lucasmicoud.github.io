@@ -19,7 +19,7 @@ In order to hack Wi-Fi, we must first understand Wi-Fi. This article will focus 
 
 Wi-Fi is a set of **wireless network protocols** from the IEEE 802.11 standards. There is quite an expansive list of protocols (see [Wikipedia](https://en.wikipedia.org/wiki/IEEE_802.11#Protocol)) based on the version and the type of network. For instance, your home router might use the 802.11ac standard (Wi-Fi 5). 
 
-As we will in the following articles, **the protocol version is not negligeable at all**. Each new version tends to come with additionnal security, which can thwart our hacking efforts.
+As we will see in the following articles, **the protocol version is not negligeable at all**. Each new version tends to come with additionnal security, which can thwart our hacking efforts.
 
 ## The basics
 
@@ -29,9 +29,9 @@ In order for the clients to know about the APs, the latter periodically transmit
 
 ## Band and channel
 
-It is important to understand how Wi-Fi physically works. The Wi-Fi antenna in a device can only receive and emit on a selected number of **bands**, or frequencies (you might have heard of 2.5GHz, 5GHz, and the brand new 6GHz introduced in 802.11ax as Wi-Fi 6E). 
+It is important to understand how Wi-Fi physically works. The Wi-Fi antenna in a device can only receive and emit on a selected number of **bands**, or frequencies (you might have heard of 2.4GHz, 5GHz, and the brand new 6GHz introduced in 802.11ax as Wi-Fi 6E). 
 
-What you might not know is that, in fact, each of these band is divided into **channels**, or "sub-frequencies". For the 2.5GHz band, there are 14 channels (1 to 14), with only the first 11 being commonly used. 
+What you might not know is that, in fact, each of these band is divided into **channels**, or "sub-frequencies". For the 2.4GHz band, there are 14 channels (1 to 14), with only the first 11 being commonly used. 
 
 Each Wi-Fi device has to choose a channel to communicate on, and doing so it cannot see what goes on on the other channels. Typically, the APs try to choose the less cluttered channels, while the clients stick to the channel of the AP they are connected to.
 
@@ -45,7 +45,7 @@ On a Wi-Fi network, each device is recognized by its **MAC address** (6 bytes). 
 
 If two APs set the same SSID (and password), a client can connect to the AP it wants (generally the one with better signal strength). This feature allows **roaming** in Wi-Fi networks.
 
-**BSSID** is the AP MAC address on its network. In the case where the AP is a router, the BSSID is not to be confused with the router mac address on the network. For instance, a router AP can have a MAC address for its ethernet interfact connecting it to the network, a BSSID for its 2.5GHz Wi-Fi and another slightly different BSSID for its 5GHz Wi-Fi.  
+**BSSID** is the AP MAC address on its network. In the case where the AP is a router, the BSSID is not to be confused with the router mac address on the network. For instance, a router AP can have a MAC address for its ethernet interfact connecting it to the network, a BSSID for its 2.4GHz Wi-Fi and another slightly different BSSID for its 5GHz Wi-Fi.  
 
 ## Wi-Fi frames
 
@@ -61,8 +61,8 @@ Wi-Fi devices communicate with each other by sending **frames** over the air. Th
 
 The MAC header has at least 5 fields : 
 
-- Frame Control - Frame Control contains important informations about the frame (see next section).
-- Duration - The duration is the amount of time the sending radio reservers for pending acknowledgement frame.
+- Frame Control - Contains important informations about the frame (see next section).
+- Duration - Amount of time the sending radio reserves for pending acknowledgement frame.
 - Address 1 - **Destination** MAC address.
 - Address 2 - **Source** MAC address.
 - Address 3 - **BSSID**.
@@ -71,7 +71,7 @@ The other fields are required and only present in certain frame types.
 
 ### Frame Control
 
-Frame control is a set of flags that give informations on the frame content. Most important part of the frame control are bits 2 to 6. Bits 2 and 3 indicate the **frame type**, while bits 4 to 7 indicate the **frame subtype**.
+Frame control is a set of flags that give informations on the frame content. The most important part of the frame control are bits 2 to 7. Bits 2 and 3 indicate the **frame type**, while bits 4 to 7 indicate the **frame subtype**.
 
 ![frame_control.png](/images/3e837ab1-7fda-41db-8a5c-3e83804499c1.png)
 
