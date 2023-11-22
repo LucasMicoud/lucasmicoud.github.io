@@ -7,67 +7,73 @@ series = "ESPwn - Hacking Wi-Fi networks with 20$ of hardware"
 
 # ESPwn - Introduction
 
-I recently bought an Espressif ESP32 board and was looking for a little hacking project to learn its capabilities. I had already heard of devices Wi-Fi sniffing and deauthentication attack, so I decided it would be quite a nice endeavour to try and make one myself. Through this series of articles, you will learn about Wi-Fi protocol and vulnerabilities, esp32 programming, electronics, and even a little bit of reverse engineering. Without further ado, let's dive into the rabbit hole.
+I recently bought an Espressif ESP32 board and was looking for a little hacking project to learn its capabilities. I had already heard of devices capable of Wi-Fi sniffing and deauthentication attack, so I decided it would be quite a nice endeavour to try and make one myself. 
 
-## Part 1 - A little bit of Wi-Fi theory
+Through this series of articles, you will learn about Wi-Fi protocol and vulnerabilities, esp32 programming, electronics, and even a little bit of reverse engineering. Without further ado, let's dive into the rabbit hole.
 
-In order to hack Wi-Fi, we must first understand Wi-Fi, so in this article we will be doing all the necessary theory for the rest of the series. 
+# Part 1 - A little bit of Wi-Fi theory
 
-### Wi-Fi - What is it really ?
+In order to hack Wi-Fi, we must first understand Wi-Fi. This article will focus on explaining the basics of Wi-Fi, laying foundations that we will build on during the rest of the series. 
 
-Wi-Fi is a set of wireless network protocols from the IEEE 802.11 standards. There is quite an expansive list of protocols (see [Wikipedia](https://en.wikipedia.org/wiki/IEEE_802.11#Protocol)) based on the version and the type of network. For instance, your home router might use the 802.11ac standard (Wi-Fi 5). 
+## Wi-Fi - What is it really ?
 
-As we will see a little bit later, the protocol version is not negligeable at all. Each new version tends to come with additionnal security, which can thwart our efforts.
+Wi-Fi is a set of **wireless network protocols** from the IEEE 802.11 standards. There is quite an expansive list of protocols (see [Wikipedia](https://en.wikipedia.org/wiki/IEEE_802.11#Protocol)) based on the version and the type of network. For instance, your home router might use the 802.11ac standard (Wi-Fi 5). 
 
-### The basics
+As we will in the following articles, **the protocol version is not negligeable at all**. Each new version tends to come with additionnal security, which can thwart our hacking efforts.
 
-As you probably already know, there are two kinds of Wi-Fi devices : Access Points (APs) and Clients. The clients connect to an AP to have access to the rest of the network.
+## The basics
 
-In order for the clients to know about the APs, the latter periodically transmit their informations (we will see later how). 
+As you probably already know, there are two kinds of Wi-Fi devices : **Access Points** (APs) and **Clients**. The clients connect to an AP to access the rest of the network. For instance in the case of your home network, the AP is probably your ISP provided router, while the clients are all the devices you connect to it via Wi-Fi.
 
-### Band and channel
+In order for the clients to know about the APs, the latter periodically transmit their informations (we will see later how).
 
-It is important to understand how Wi-Fi physically works. The Wi-Fi antenna in your router or phone can only emit on a selected number of bands (you might have heard of 2.5GHz, 5GHz, and the brand new 6GHz introduced in 802.11ax as Wi-Fi 6E). 
+## Band and channel
 
-In order to reduce taffic cluttering, each of these band is divided into channels. For the 2.5GHz band, there are 14 channels (1 to 14), with only the first 11 being commonly used. 
+It is important to understand how Wi-Fi physically works. The Wi-Fi antenna in a device can only receive and emit on a selected number of **bands**, or frequencies (you might have heard of 2.5GHz, 5GHz, and the brand new 6GHz introduced in 802.11ax as Wi-Fi 6E). 
 
-Each Wi-Fi device has to choose a channel to communicate, and doing so it cannot see what goes on on the other channels. Typically, the APs choose the less cluttered available channel, while the clients stick to the channel of the AP they are connected to.
+What you might not know is that, in fact, each of these band is divided into **channels**, or "sub-frequencies". For the 2.5GHz band, there are 14 channels (1 to 14), with only the first 11 being commonly used. 
 
-![channels.png](images\c8ce5b2e-90c0-41d2-b3fa-10c6403f5824.png)
+Each Wi-Fi device has to choose a channel to communicate on, and doing so it cannot see what goes on on the other channels. Typically, the APs try to choose the less cluttered channels, while the clients stick to the channel of the AP they are connected to.
 
-### Terminology : Mac, SSID and BSSID
+![channels.png](/images/c8ce5b2e-90c0-41d2-b3fa-10c6403f5824.png)
 
-On a Wi-Fi network, each device is recognized by its MAC address (6 bytes). This address is supposed to be unique to the device, and is set by the network card. 
+## Terminology : Mac, SSID and BSSID
 
-SSID is the logical name of the network, advertise by the AP and set by the AP administrator. It is a 32 characters string unique to the network. If two APs set the same SSID (and password), a client can connect to the AP it wants (generally the one with better signal strength). This feature allows roaming in Wi-Fi networks.
+On a Wi-Fi network, each device is recognized by its **MAC address** (6 bytes). This address is supposed to be unique to the device, and is set by the network card. 
 
-BSSID is the AP MAC address on its network. In the case where the AP is a router, the BSSID is not to be confused with the router mac address on the network. For instance, an router AP can have a MAC address for its ethernet interfact connecting it to the network, a BSSID for its 2.5GHz Wi-Fi and another slightly different BSSID for its 5GHz Wi-Fi.  
+**SSID** is the logical name of the network (the one you see in your device when connecting to a Wi-Fi network). It is a 32 characters string **unique to the network**, advertised by the AP and set by the AP administrator. 
 
-### Wi-Fi frame basics
+If two APs set the same SSID (and password), a client can connect to the AP it wants (generally the one with better signal strength). This feature allows **roaming** in Wi-Fi networks.
 
-Wi-Fi devices communicate with each other by sending frames over the air. Those frames have an established format :
+**BSSID** is the AP MAC address on its network. In the case where the AP is a router, the BSSID is not to be confused with the router mac address on the network. For instance, a router AP can have a MAC address for its ethernet interfact connecting it to the network, a BSSID for its 2.5GHz Wi-Fi and another slightly different BSSID for its 5GHz Wi-Fi.  
 
-- A MAC header of variable length, which includes a Frame Control field
-- A body
-- A FCS (Frame Control Sequence)
+## Wi-Fi frames
 
-![wifi_frame.png](/images/d042e29a-4fa0-4748-8f72-743e6d9864ec.png)
+Wi-Fi devices communicate with each other by sending **frames** over the air. Those frames have an established format :
 
-#### MAC Header
+- A MAC header of variable length, which includes a **Frame Control** field
+- A body containing the actual frame payload
+- A FCS (Frame Control Sequence) used to detect errors during the communication.
+
+![wifi_frame.png](/images/883219ec-8104-4c0f-9e88-3b246606d36d.png)
+
+### MAC Header
 
 The MAC header has at least 5 fields : 
 
 - Frame Control - Frame Control contains important informations about the frame (see next section).
 - Duration - The duration is the amount of time the sending radio reservers for pending acknowledgement frame.
-- Address 1 - Destination MAC address.
-- Address 2 - Source MAC address.
-- Address 3 - BSSID.
+- Address 1 - **Destination** MAC address.
+- Address 2 - **Source** MAC address.
+- Address 3 - **BSSID**.
 
-#### Frame Control
+The other fields are required and only present in certain frame types.
+
+### Frame Control
+
+Frame control is a set of flags that give informations on the frame content. Most important part of the frame control are bits 2 to 6. Bits 2 and 3 indicate the **frame type**, while bits 4 to 7 indicate the **frame subtype**.
 
 ![frame_control.png](/images/3e837ab1-7fda-41db-8a5c-3e83804499c1.png)
-
-Frame control is a set of flags that give informations on the frame. Most important part of the frame control are bits 2 to 6. Bits 2 and 3 indicate the frame type, while bits 4 to 7 indicate the subtype.
 
 ### Wi-Fi frame types
 
@@ -83,22 +89,24 @@ For each of those frame types, there are up to 16 frame subtypes. However only s
 |---------------------|------------|---------------|
 |Beacon|00 (management)| 1000|
 |Authentication|00 (management)|1011|
+|Deauthentication|00 (management)|1100|
 |Association request|00 (management)|0000|
 |Association response|00 (management)|0001|
+|Disassociation|00 (management)|1010|
 |Quality of Service Data|10 (data)|1000|
 
 Beacon frames are sent by access points to advertise their presence on a channel. They contain important information used in the association process such as the authentication method or the SSID. 
 
-The role of the other frames will be explained in more details in the chapter about authentication. 
+The role of the other frames will be explained in more details in the chapter Wi-Fi association. 
 
-### Conclusion
+## Conclusion
 
 In this first part of our series on Wi-Fi hacking with an ESP32 board, we've covered the basics of Wi-Fi protocols, bands and channels, along with key terminology like MAC, SSID, and BSSID. We explored the structure of Wi-Fi frames, focusing on the MAC header and Frame Control, laying the groundwork for understanding Wi-Fi authentication.
 
-In the next part, we'll go for an in-depth explanation of the Wi-Fi authentication process.
+In the next part, we'll go for an in-depth explanation of the Wi-Fi association process.
 
 ## References
-[1] https://en.wikipedia.org/wiki/IEEE_802.11
-[2] https://www.makeuseof.com/wi-fi-router-channels-explained-what-do-they-all-do/
-[3] https://en.wikipedia.org/wiki/802.11_Frame_Types
-[4] https://www.atera.com/blog/computer-terms-unwrapped-what-is-bssid/
+- [1] https://en.wikipedia.org/wiki/IEEE_802.11
+- [2] https://www.makeuseof.com/wi-fi-router-channels-explained-what-do-they-all-do/
+- [3] https://en.wikipedia.org/wiki/802.11_Frame_Types
+- [4] https://www.atera.com/blog/computer-terms-unwrapped-what-is-bssid/
