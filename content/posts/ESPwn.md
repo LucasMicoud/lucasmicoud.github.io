@@ -1,5 +1,5 @@
 +++
-title = 'Hello World'
+title = 'ESPwn Part 1 - A little bit of Wi-Fi theory'
 date = 2023-11-22
 draft = false
 series = "ESPwn - Hacking Wi-Fi networks with 20$ of hardware"
