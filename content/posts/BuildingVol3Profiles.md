@@ -1,6 +1,6 @@
 +++
 title = 'Building Linux symbols for volatility 3'
-date = 2023-11-22
+date = 2024-01-08
 draft = false
 series = "Tutorials"
 +++
