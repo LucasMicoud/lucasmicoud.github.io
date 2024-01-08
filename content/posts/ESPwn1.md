@@ -106,7 +106,8 @@ In this first part of our series on Wi-Fi hacking with an ESP32 board, we've cov
 In the next part, we'll go for an in-depth explanation of the Wi-Fi association process.
 
 ## References
-- [1] https://en.wikipedia.org/wiki/IEEE_802.11
-- [2] https://www.makeuseof.com/wi-fi-router-channels-explained-what-do-they-all-do/
-- [3] https://en.wikipedia.org/wiki/802.11_Frame_Types
-- [4] https://www.atera.com/blog/computer-terms-unwrapped-what-is-bssid/
+- [1] Wikipedia.com - [IEEE 802.11](https://en.wikipedia.org/wiki/IEEE_802.11)
+- [2] makeuseof.com - [Wi-Fi Router Channels Explained: What Do They All Do?](https://www.makeuseof.com/wi-fi-router-channels-explained-what-do-they-all-do/)
+- [3] Wikipedia.com - [802.11 frame types](https://en.wikipedia.org/wiki/802.11_Frame_Types)
+- [4] www.atera.com - [Computer terms unwrapped: What is BSSID?](https://www.atera.com/blog/computer-terms-unwrapped-what-is-bssid/)
+
